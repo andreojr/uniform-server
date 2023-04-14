@@ -6,18 +6,38 @@ export async function routes(server: FastifyInstance) {
 
     server.post("/requests", async (request, reply) => {
 
+
+        const createShirtsSchema = z.object({
+            cor: z.string(),
+        });
+
         const createRequestSchema = z.object({
             nome: z.string(),
             matricula: z.string().regex(/^\d+$/),
             curso: z.string(),
             tamanho: z.string().length(1),
-            cor: z.string(),
-            quantidade: z.number().int(),
+            shirts: z.array(createShirtsSchema),
         });
 
-        const data = createRequestSchema.parse(request.body);
+        const { nome, matricula, curso, tamanho, shirts } = createRequestSchema.parse(request.body);
 
-        await db.request.create({ data });
+        const user = await db.user.create({
+            data: {
+                nome,
+                matricula,
+                curso,
+                tamanho,
+            }
+        });
+        
+        shirts.forEach(async shirt => {
+            await db.request.create({
+                data: {
+                    ...shirt,
+                    user_id: user.id,
+                }
+            })
+        });
         reply.status(201).send();
     });
 
@@ -29,7 +49,7 @@ export async function routes(server: FastifyInstance) {
         
         const { matricula } = loginSchema.parse(request.params);
 
-        const result = await db.request.findUnique({
+        const result = await db.user.findUnique({
             where: { matricula }
         });
 
@@ -38,18 +58,18 @@ export async function routes(server: FastifyInstance) {
     });
 
     server.get("/requests", async (request, reply) => {
-        const results = await db.request.findMany();
+        const results = await db.request.findMany({
+            select: {
+                id: true,
+                cor: true,
+                user: true,
+            }
+        });
         reply.status(200).send(results);
     });
 
     server.get("/requests/count", async (request, reply) => {
         const results = await db.request.findMany();
-
-        let count = 0;
-        results.forEach(result => {
-            count = count + result.quantidade;
-        });
-
-        reply.status(200).send(count);
+        reply.status(200).send(results.length);
     });
 }
