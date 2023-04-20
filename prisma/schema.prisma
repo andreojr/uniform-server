@@ -23,10 +23,10 @@ model User {
 }
 
 model Request {
-  id      String @id @default(uuid())
-  modelo  String
+  id      String  @id @default(uuid())
   cor     String
-  tamanho String @db.Char(1)
+  tamanho String  @db.VarChar(2)
+  pay     Boolean @default(false)
   user_id String
 
   user User @relation(fields: [user_id], references: [id])
