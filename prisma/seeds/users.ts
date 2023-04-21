@@ -1,10 +1,9 @@
 import { PrismaClient } from '@prisma/client'
-import { users, requests } from '../data'
+import { users } from '../data'
 
 const prisma = new PrismaClient()
 
 async function run() {
-    await prisma.request.deleteMany()
     await prisma.user.deleteMany()
 
     users.forEach(async user => {
