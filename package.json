@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "prisma": {
-    "seed": "tsx prisma/seed/users.ts && tsx prisma/seed/requests.ts"
+    "seed": "tsx prisma/seeds/users.ts && tsx prisma/seeds/requests.ts"
   },
   "dependencies": {
     "@fastify/cors": "^8.2.1",
