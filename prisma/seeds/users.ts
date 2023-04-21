@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { users, requests } from './data'
+import { users, requests } from '../data'
 
 const prisma = new PrismaClient()
 
@@ -15,19 +15,6 @@ async function run() {
                     nome: user.nome,
                     matricula: user.matricula,
                     curso: user.curso,
-                }
-            })
-        ]);
-    });
-
-    requests.forEach(async request => {
-        await Promise.all([
-            prisma.request.create({
-                data: {
-                    id: request.id,
-                    cor: request.cor,
-                    tamanho: request.tamanho,
-                    user_id: request.user_id,
                 }
             })
         ]);
