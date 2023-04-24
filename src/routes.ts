@@ -8,17 +8,31 @@ export async function routes(server: FastifyInstance) {
     server.get("/users/pay/:matricula", async (request, reply) => {
 
         const searchUserSchema = z.object({
-            id: z.string().uuid(),
+            matricula: z.string().regex(/^\d+$/),
         });
         
-        const { id } = searchUserSchema.parse(request.params);
+        const { matricula } = searchUserSchema.parse(request.params);
 
-        const result = await db.user.findUnique({
-            where: { id }
+        const user = await db.user.findUnique({
+            where: { matricula }
         });
 
-        if (result) reply.status(200).send(result);
-        else reply.status(404).send();
+        if (user) {
+            const requests = await db.request.findMany({
+                where: { user_id: user.id }
+            });
+
+            requests.forEach(async request => {
+                await db.request.update({
+                    where: { id: request.id },
+                    data: { pay: true }
+                });
+            });
+
+            reply.status(200).send();
+        } else {
+            reply.status(404).send();
+        }
     });
 
     server.post("/requests", async (request, reply) => {
