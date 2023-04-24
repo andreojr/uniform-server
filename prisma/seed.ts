@@ -4,8 +4,8 @@ import { users, requests } from './data'
 const prisma = new PrismaClient()
 
 async function run() {
-    await prisma.user.deleteMany()
     await prisma.request.deleteMany()
+    await prisma.user.deleteMany()
 
     await Promise.all(
         users.map(async user => {
