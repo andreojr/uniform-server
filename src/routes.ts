@@ -10,7 +10,7 @@ export async function routes(server: FastifyInstance) {
 
         const createShirtsSchema = z.object({
             cor: z.string(),
-            tamanho: z.string().max(2),
+            tamanho: z.string().min(1).max(2),
         });
 
         const createRequestSchema = z.object({
