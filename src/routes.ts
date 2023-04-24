@@ -5,7 +5,7 @@ import { User } from "@prisma/client";
 
 export async function routes(server: FastifyInstance) {
 
-    server.get("/users/:id", async (request, reply) => {
+    server.get("/users/pay/:matricula", async (request, reply) => {
 
         const searchUserSchema = z.object({
             id: z.string().uuid(),
@@ -108,7 +108,7 @@ export async function routes(server: FastifyInstance) {
                 user_id: id
             },
         });
-        reply.status(200).send(results);
+        reply.status(200).send({ count: results.length, results });
     });
 
     server.delete("/requests/:id", async (request, reply) => {
