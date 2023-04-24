@@ -5,6 +5,22 @@ import { User } from "@prisma/client";
 
 export async function routes(server: FastifyInstance) {
 
+    server.get("/users/:id", async (request, reply) => {
+
+        const searchUserSchema = z.object({
+            id: z.string().uuid(),
+        });
+        
+        const { id } = searchUserSchema.parse(request.params);
+
+        const result = await db.user.findUnique({
+            where: { id }
+        });
+
+        if (result) reply.status(200).send(result);
+        else reply.status(404).send();
+    });
+
     server.post("/requests", async (request, reply) => {
 
 
