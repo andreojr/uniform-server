@@ -1,98 +1,139 @@
+export const users = [
+    {
+        "nome": "Isaac Araujo",
+        "matricula": "75991386811",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Igor dos Santos Nunes",
+        "matricula": "21976358975",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Miguel Feliciano Mota Alves",
+        "matricula": "71982695535",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Pedro Afonso Braga",
+        "matricula": "73988522925",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Lucy Cássia Cerqueira Silva",
+        "matricula": "71986276741",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Lidinei  J Santos",
+        "matricula": "75981161484",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Mateus de Souza Cerqueira",
+        "matricula": "71984649775",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Jéssica da Silva Correia",
+        "matricula": "74999477221",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Tarcisio Novais Pedreira",
+        "matricula": "71993364679",
+        "curso": "engcomp"
+    },
+    {
+        "nome": "Pedro Hugo Passos da Silva Carlos",
+        "matricula": "71982547711",
+        "curso": "engcomp"
+    }
+];
+
 export const requests = [
     {
+        "matricula": "75991386811",
+        "modelo": "classica",
+        "cor": "vinho",
+        "tamanho": "M"
+    },
+    {
+        "matricula": "21976358975",
         "modelo": "classica",
         "cor": "marinho",
-        "tamanho": "G",
-        "user_id": "c5cf9d00-31c5-4801-8877-3a7e27a44c0e"
+        "tamanho": "G"
     },
     {
+        "matricula": "71982695535",
         "modelo": "classica",
-        "cor": "preta",
-        "tamanho": "M",
-        "user_id": "7f5d8c49-6f72-4b6d-9fe9-b935083182b7"
+        "cor": "marinho",
+        "tamanho": "G"
     },
     {
+        "matricula": "73988522925",
+        "modelo": "classica",
+        "cor": "vinho",
+        "tamanho": "GG"
+    },
+    {
+        "matricula": "71986276741",
+        "modelo": "classica",
+        "cor": "vinho",
+        "tamanho": "M"
+    },
+    {
+        "matricula": "71986276741",
         "modelo": "classica",
         "cor": "branca",
-        "tamanho": "M",
-        "user_id": "7f5d8c49-6f72-4b6d-9fe9-b935083182b7"
+        "tamanho": "M"
     },
     {
-        "modelo": "classica",
-        "cor": "marinho",
-        "tamanho": "M",
-        "user_id": "7f5d8c49-6f72-4b6d-9fe9-b935083182b7"
-    },
-    {
+        "matricula": "75981161484",
         "modelo": "classica",
         "cor": "azul",
-        "tamanho": "G",
-        "user_id": "f52fdb22-74d8-4a08-9a48-1dc7429a91ea"
+        "tamanho": "M"
     },
     {
-        "modelo": "classica",
-        "cor": "preta",
-        "tamanho": "G",
-        "user_id": "b211e083-702d-4382-b72a-233b7e1bcea9"
-    },
-    {
-        "modelo": "classica",
-        "cor": "preta",
-        "tamanho": "G",
-        "user_id": "3e557c7e-78b1-4b63-a421-5be5b346a0ee"
-    },
-    {
-        "modelo": "classica",
-        "cor": "vermelha",
-        "tamanho": "G",
-        "user_id": "3e557c7e-78b1-4b63-a421-5be5b346a0ee"
-    },
-    {
-        "modelo": "classica",
-        "cor": "vermelha",
-        "tamanho": "P",
-        "user_id": "50e85142-c477-4cc7-8733-39521ec0e55e"
-    },
-    {
-        "modelo": "classica",
-        "cor": "preta",
-        "tamanho": "M",
-        "user_id": "f51e6cc7-d8b4-44cc-b02b-839ccf51b031"
-    },
-    {
-        "modelo": "classica",
-        "cor": "vinho",
-        "tamanho": "XG",
-        "user_id": "53d8ff36-0bd6-40ef-ab2a-8ca086cf63e0"
-    },
-    {
-        "modelo": "classica",
-        "cor": "preta",
-        "tamanho": "M",
-        "user_id": "9e4f1742-4834-45b1-b8ac-59d82cf9b34c"
-    },
-    {
-        "modelo": "classica",
-        "cor": "azul",
-        "tamanho": "G",
-        "user_id": "aaf9af3f-6c79-42af-9f99-d7fed7044722"
-    },
-    {
-        "modelo": "classica",
-        "cor": "vinho",
-        "tamanho": "G",
-        "user_id": "aaf9af3f-6c79-42af-9f99-d7fed7044722"
-    },
-    {
+        "matricula": "75981161484",
         "modelo": "classica",
         "cor": "cinza",
-        "tamanho": "M",
-        "user_id": "e20e11ea-32e6-47ce-9218-b863f6b9cfb0"
+        "tamanho": "M"
     },
     {
+        "matricula": "71984649775",
+        "modelo": "classica",
+        "cor": "marinho",
+        "tamanho": "M"
+    },
+    {
+        "matricula": "74999477221",
         "modelo": "classica",
         "cor": "preta",
-        "tamanho": "P",
-        "user_id": "c20bfa13-58d1-4a66-bdbd-df5b43147d12"
+        "tamanho": "M"
+    },
+    {
+        "matricula": "71993364679",
+        "modelo": "classica",
+        "cor": "preta",
+        "tamanho": "G"
+    },
+    {
+        "matricula": "71993364679",
+        "modelo": "classica",
+        "cor": "branca",
+        "tamanho": "G"
+    },
+    {
+        "matricula": "71982547711",
+        "modelo": "classica",
+        "cor": "preta",
+        "tamanho": "P"
+    },
+    {
+        "matricula": "71982547711",
+        "modelo": "classica",
+        "cor": "branca",
+        "tamanho": "P"
     }
 ]

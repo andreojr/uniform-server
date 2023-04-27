@@ -1,22 +1,43 @@
 import { PrismaClient } from '@prisma/client'
-import { requests } from './dataForms'
+import { users, requests } from './dataForms'
 
 const prisma = new PrismaClient()
 
 async function run() {
 
     await Promise.all(
-        requests.map(async request => {
-            await prisma.request.create({
+        users.map(async user => {
+            await prisma.user.create({
                 data: {
-                    modelo: request.modelo,
-                    cor: request.cor,
-                    tamanho: request.tamanho,
-                    user_id: request.user_id,
+                    nome: user.nome,
+                    matricula: user.matricula,
+                    curso: user.curso,
                 }
             })
         })
     );
+
+    await Promise.all(
+        requests.map(async request => {
+
+            const user = await prisma.user.findUnique({
+                where: {
+                    matricula: request.matricula,
+                }
+            })
+
+            if (user) {
+                await prisma.request.create({
+                    data: {
+                        cor: request.cor,
+                        modelo: request.modelo,
+                        tamanho: request.tamanho,
+                        user_id: user.id
+                    }
+                });
+            }
+        })
+    );   
     
 }
 
