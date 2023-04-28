@@ -101,6 +101,7 @@ export async function routes(server: FastifyInstance) {
                 modelo: true,
                 cor: true,
                 tamanho: true,
+                pay: true,
                 user: true,
             }
         });
