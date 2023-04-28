@@ -98,6 +98,7 @@ export async function routes(server: FastifyInstance) {
         const results = await db.request.findMany({
             select: {
                 id: true,
+                modelo: true,
                 cor: true,
                 tamanho: true,
                 user: true,
