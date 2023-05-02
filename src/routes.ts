@@ -16,12 +16,13 @@ export async function routes(server: FastifyInstance) {
         
         await Promise.all(
             users.map(async (user, i) => {
-                let userWithPay = {...user, pay: true};
+                let userWithPay = {...user, pay: true,count:0};
                 const requests = await db.request.findMany({
                     where: { user_id: user.id }
                 });
                 requests.forEach(async request => {
                     if (!request.pay) userWithPay.pay = false;
+                    userWithPay.count++;
                 });
                 usersWithPay.push(userWithPay);
             })
