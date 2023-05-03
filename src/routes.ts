@@ -2,7 +2,6 @@ import { FastifyInstance } from "fastify";
 import { number, z } from "zod";
 import { db } from "./lib/db";
 import { User } from "@prisma/client";
-import { QrCodePix } from "qrcode-pix";
 
 export async function routes(server: FastifyInstance) {
 
@@ -55,22 +54,7 @@ export async function routes(server: FastifyInstance) {
         let frete = Number((freteTotal / allRequests.length).toFixed(2));
         frete = frete * count;
 
-        const qrCodePix = QrCodePix({
-            version: "01",
-            city: "SALVADOR",
-            key: "85930656517",
-            name: "Andre L O Junior",
-            message: `${count}x UniForm`,
-            value: precoUnitario * count + frete,
-            transactionId: `uniform-${user?.matricula}`
-        });
-
-        const pixInfo = {
-            hash: qrCodePix.payload(),
-            qrcode: await qrCodePix.base64(),
-        }
-
-        reply.status(200).send({count, frete, pixInfo});
+        reply.status(200).send({count, frete});
     });
 
     server.patch("/users/unpay/:matricula", async (request, reply) => {
