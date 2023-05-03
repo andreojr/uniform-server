@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { number, z } from "zod";
 import { db } from "./lib/db";
 import { User } from "@prisma/client";
+import { QrCodePix } from "qrcode-pix";
 
 export async function routes(server: FastifyInstance) {
 
@@ -29,6 +30,47 @@ export async function routes(server: FastifyInstance) {
         );
         
         reply.status(200).send(usersWithPay);
+    });
+
+    server.get("/users/generate-pay/:id", async (request, reply) => {
+        const searchUserSchema = z.object({
+            id: z.string().uuid(),
+        });
+
+        const { id } = searchUserSchema.parse(request.params);
+
+        const results = await db.request.findMany({
+            where: { user_id: id },
+        });
+        const allRequests = await db.request.findMany();
+        const user = await db.user.findUnique({
+            where: { id },
+        });
+
+        const count = results.length;
+
+        const precoUnitario = 27;
+        const freteTotal = 52.20;
+
+        let frete = Number((freteTotal / allRequests.length).toFixed(2));
+        frete = frete * count;
+
+        const qrCodePix = QrCodePix({
+            version: "01",
+            city: "SALVADOR",
+            key: "85930656517",
+            name: "Andre L O Junior",
+            message: `${count}x UniForm`,
+            value: precoUnitario * count + frete,
+            transactionId: `uniform-${user?.matricula}`
+        });
+
+        const pixInfo = {
+            hash: qrCodePix.payload(),
+            qrcode: await qrCodePix.base64(),
+        }
+
+        reply.status(200).send({count, frete, pixInfo});
     });
 
     server.patch("/users/unpay/:matricula", async (request, reply) => {
@@ -171,17 +213,15 @@ export async function routes(server: FastifyInstance) {
         reply.status(200).send(results.length);
     });
 
-    server.get("/requests/:id", async (request, reply) => {
+    server.get("/requests/:user_id", async (request, reply) => {
 
         const getRequestsByUser = z.object({
-            id: z.string().uuid(),
+            user_id: z.string().uuid(),
         });
 
-        const { id } = getRequestsByUser.parse(request.params);
+        const { user_id } = getRequestsByUser.parse(request.params);
         const results = await db.request.findMany({
-            where: {
-                user_id: id
-            },
+            where: { user_id },
         });
         reply.status(200).send({ count: results.length, results });
     });

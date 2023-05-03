@@ -18,6 +18,7 @@
     "@fastify/cors": "^8.2.1",
     "@prisma/client": "^4.13.0",
     "fastify": "^4.15.0",
+    "qrcode-pix": "^5.0.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
