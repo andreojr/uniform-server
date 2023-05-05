@@ -117,6 +117,21 @@ export async function routes(server: FastifyInstance) {
         }
     });
 
+    server.patch("/users/confirm-requests/:user_id", async (request, reply) => {
+        const searchUserSchema = z.object({
+            user_id: z.string().uuid(),
+        });
+        
+        const { user_id } = searchUserSchema.parse(request.params);
+
+        await db.user.update({
+            where: { id: user_id },
+            data: { confirmado: true },
+        });
+
+        reply.status(200).send();
+    });
+
     server.post("/requests", async (request, reply) => {
 
         if (Number(process.env.ETAPA_ATUAL) === 1) {
