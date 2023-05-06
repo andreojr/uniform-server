@@ -225,6 +225,36 @@ export async function routes(server: FastifyInstance) {
         reply.status(200).send({ count: results.length, results });
     });
 
+    server.get("/request/:id", async (request, reply) => {
+
+        const getRequestById = z.object({
+            id: z.string().uuid(),
+        });
+
+        const { id } = getRequestById.parse(request.params);
+        const shirt = await db.request.findUnique({ where: { id } });
+        reply.status(200).send(shirt);
+    });
+
+    server.patch("/requests/:id", async (request, reply) => {
+
+        if (Number(process.env.ETAPA_ATUAL) === 3) {
+            const getRequestById = z.object({
+                id: z.string().uuid(),
+            });
+            const shirtUpdateSchema = z.object({
+                cor: z.string(),
+                tamanho: z.string().min(1).max(2),
+                modelo: z.enum(["classica", "alternativa"]),
+            });
+    
+            const { id } = getRequestById.parse(request.params);
+            const updateData = shirtUpdateSchema.parse(request.body);
+            await db.request.update({ where: { id }, data: updateData });
+            reply.status(200).send();
+        } else reply.status(500).send();
+    });
+
     server.delete("/requests/:id", async (request, reply) => {
 
         if (Number(process.env.ETAPA_ATUAL) === 1) {
