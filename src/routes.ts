@@ -202,7 +202,14 @@ export async function routes(server: FastifyInstance) {
                 tamanho: true,
                 pay: true,
                 user: true,
-            }
+            },
+            orderBy: [
+                {
+                    user: {
+                        nome: "asc",
+                    }
+                }
+            ]
         });
         reply.status(200).send(results);
     });
